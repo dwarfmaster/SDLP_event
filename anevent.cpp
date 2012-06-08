@@ -32,8 +32,10 @@ namespace sdl
 
 	AnEvent& AnEvent::operator=(const AnEvent& cp)
 	{
-		m_pressed=cp.m_pressed;
-		m_released=cp.m_released;
+		m_pressed = cp.m_pressed;
+		m_released = cp.m_released;
+		m_buttonp = cp.m_buttonp;
+		m_buttonr = cp.m_buttonr;
 
 		return *this;
 	}
@@ -190,6 +192,8 @@ namespace sdl
 	{
 		m_pressed.clear();
 		m_released.clear();
+		m_buttonp.clear();
+		m_buttonr.clear();
 	}
 
 	bool AnEvent::addKeys(std::string keys)
