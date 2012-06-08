@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <string>
+#include <boost/optional.hpp>
 #include <SDL/SDL.h>
 
 namespace sdl
@@ -51,11 +52,18 @@ namespace sdl
 			bool addKeys(std::string keys);
 			bool addForbid(std::string keys);
 
+			void setPlace(const SDL_Rect& place);
+			void unsetPlace();
+			boost::optional<SDL_Rect> getPlace() const;
+
 		protected:
 			std::vector<SDLKey> m_pressed; // Touches devant être pressées
 			std::vector<SDLKey> m_released; // Touches devant êtres relachées
 			std::vector<Uint8> m_buttonp; // Boutton devant être pressé
 			std::vector<Uint8> m_buttonr; // Boutton devant être relaché
+
+			bool m_usePlace;
+			SDL_Rect m_place;
 
 			std::vector<SDLKey> aKey(std::string str) const;
 			std::vector<std::string> parseStr(std::string str) const;

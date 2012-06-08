@@ -3,28 +3,32 @@
 namespace sdl
 {
 	AnEvent::AnEvent()
+		:m_usePlace(false)
 	{}
 
 	AnEvent::AnEvent(SDLKey key)
+		:m_usePlace(false)
 	{
 		m_pressed.push_back(key);
 	}
 
 	AnEvent::AnEvent(std::vector<SDLKey> keys)
-		:m_pressed(keys)
+		:m_pressed(keys), m_usePlace(false)
 	{}
 
 	AnEvent::AnEvent(std::vector<SDLKey> keys, std::vector<SDLKey> forbidden)
-		:m_pressed(keys), m_released(forbidden)
+		:m_pressed(keys), m_released(forbidden), m_usePlace(false)
 	{
 	}
 
 	AnEvent::AnEvent(const AnEvent& cp)
+		:m_usePlace(false)
 	{
 		this->operator=(cp);
 	}
 
 	AnEvent::AnEvent(const std::string& keys, const std::string& forb)
+		:m_usePlace(false)
 	{
 		addKeys(keys);
 		addForbid(forb);
@@ -36,6 +40,9 @@ namespace sdl
 		m_released = cp.m_released;
 		m_buttonp = cp.m_buttonp;
 		m_buttonr = cp.m_buttonr;
+
+		m_usePlace = cp.m_usePlace;
+		m_place = cp.m_place;
 
 		return *this;
 	}
@@ -194,6 +201,8 @@ namespace sdl
 		m_released.clear();
 		m_buttonp.clear();
 		m_buttonr.clear();
+
+		m_usePlace=false;
 	}
 
 	bool AnEvent::addKeys(std::string keys)
@@ -312,5 +321,23 @@ namespace sdl
 		return keys;
 	}
 
+	void AnEvent::setPlace(const SDL_Rect& place)
+	{
+		m_usePlace = true;
+		m_place = place;
+	}
+
+	void AnEvent::unsetPlace()
+	{
+		m_usePlace = false;
+	}
+
+	boost::optional<SDL_Rect> AnEvent::getPlace() const
+	{
+		if(m_usePlace)
+			return m_place;
+		else
+			return boost::none;
+	}
 };
 

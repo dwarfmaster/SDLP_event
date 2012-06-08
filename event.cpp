@@ -777,6 +777,29 @@ namespace sdl
 			return;
 		}
 
+		boost::optional<SDL_Rect> pos = ev->event->getPlace();
+		if(pos)
+		{
+			if( !(m_posMouse.x > pos->x
+					&& m_posMouse.x < pos->x + pos->x
+					&& m_posMouse.y > pos->y
+					&& m_posMouse.y < pos->y + pos->h) )
+				toLaunch=false;
+		}
+
+		if(!toLaunch)
+		{
+			if(!pause)
+			{
+				if(ev->launched
+						&& ev->quitCallback )
+					ev->quitCallback();
+				ev->launched=false;
+				ev->lastLaunched=0;
+			}
+			return;
+		}
+
 		ev->launched=true;
 		ev->lastLaunched=SDL_GetTicks();
 		if(ev->callback)
