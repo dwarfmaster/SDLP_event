@@ -54,6 +54,22 @@ namespace sdl
 		return false;
 	}
 
+	bool AnEvent::isMustPressed(Uint8 button) const
+	{
+		for(size_t i=0; i<m_buttonp.size(); ++i)
+			if(button == m_buttonp[i])
+				return true;
+		return false;
+	}
+
+	bool AnEvent::isMustReleased(Uint8 button) const
+	{
+		for(size_t i=0; i<m_buttonr.size(); ++i)
+			if(button == m_buttonr[i])
+				return true;
+		return false;
+	}
+
 	AnEvent::ckey_iterator AnEvent::keybegin() const
 	{
 		return m_pressed.begin();
@@ -72,6 +88,26 @@ namespace sdl
 	AnEvent::ckey_iterator AnEvent::forbidend() const
 	{
 		return m_released.end();
+	}
+
+	AnEvent::cbutton_iterator AnEvent::buttonbegin() const
+	{
+		return m_buttonp.begin();
+	}
+
+	AnEvent::cbutton_iterator AnEvent::buttonend() const
+	{
+		return m_buttonp.end();
+	}
+
+	AnEvent::cbutton_iterator AnEvent::buttonrbegin() const
+	{
+		return m_buttonr.begin();
+	}
+
+	AnEvent::cbutton_iterator AnEvent::buttonrend() const
+	{
+		return m_buttonr.end();
 	}
 
 	bool AnEvent::addKey(SDLKey key)
@@ -108,6 +144,44 @@ namespace sdl
 		int nb=0;
 		for(size_t i=0; i<keys.size(); ++i)
 			if(addForbid(keys[i]))
+				++nb;
+		return nb;
+	}
+
+	bool AnEvent::addButton(Uint8 button)
+	{
+		if( (!isMustPressed(button)) && (!isMustReleased(button)) )
+		{
+			m_buttonp.push_back(button);
+			return true;
+		}
+		return false;
+	}
+
+	int AnEvent::addButtons(std::vector<Uint8> buttons)
+	{
+		int nb=0;
+		for(size_t i=0; i<buttons.size(); ++i)
+			if(addButton(buttons[i]))
+				++nb;
+		return nb;
+	}
+
+	bool AnEvent::addReleased(Uint8 button)
+	{
+		if( (!isMustPressed(button)) && (!isMustReleased(button)) )
+		{
+			m_buttonr.push_back(button);
+			return true;
+		}
+		return false;
+	}
+
+	int AnEvent::addReleased(std::vector<Uint8> buttons)
+	{
+		int nb=0;
+		for(size_t i=0; i<buttons.size(); ++i)
+			if(addReleased(buttons[i]))
 				++nb;
 		return nb;
 	}

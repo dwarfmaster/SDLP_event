@@ -24,7 +24,7 @@ namespace sdl
 			bool isNeed(SDLKey key) const;
 			bool isForbidden(SDLKey key) const;
 			bool isMustPressed(Uint8 button) const;
-			bool isMustRelease(Uint8 button) const;
+			bool isMustReleased(Uint8 button) const;
 
 			ckey_iterator keybegin() const;
 			ckey_iterator keyend() const;
