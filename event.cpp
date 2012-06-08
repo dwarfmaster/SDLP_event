@@ -721,6 +721,62 @@ namespace sdl
 			return;
 		}
 
+		for(AnEvent::cbutton_iterator it = ev->event->buttonbegin(); it!=ev->event->buttonend() && toLaunch; ++it)
+		{
+			if( !m_buttons.at(*it).state )
+				toLaunch=false;
+			else if( ev->launched
+					&& timeToCheck > (curTime - ev->lastLaunched) )
+			{
+				pause=true;
+				toLaunch=false;
+			}
+			else if( !ev->launched
+					&& timeToCheck > (curTime - m_buttons.at(*it).lastPress) )
+				toLaunch=false;
+		}
+
+		if(!toLaunch)
+		{
+			if(!pause)
+			{
+				if(ev->launched
+						&& ev->quitCallback )
+					ev->quitCallback();
+				ev->launched=false;
+				ev->lastLaunched=0;
+			}
+			return;
+		}
+
+		for(AnEvent::cbutton_iterator it = ev->event->buttonrbegin(); it!=ev->event->buttonrend() && toLaunch; ++it)
+		{
+			if( m_buttons.at(*it).state )
+				toLaunch=false;
+			else if( ev->launched
+					&& timeToCheck > (curTime - ev->lastLaunched) )
+			{
+				pause=true;
+				toLaunch=false;
+			}
+			else if( !ev->launched
+					&& timeToCheck > (curTime - m_buttons.at(*it).lastPress) )
+				toLaunch=false;
+		}
+
+		if(!toLaunch)
+		{
+			if(!pause)
+			{
+				if(ev->launched
+						&& ev->quitCallback )
+					ev->quitCallback();
+				ev->launched=false;
+				ev->lastLaunched=0;
+			}
+			return;
+		}
+
 		ev->launched=true;
 		ev->lastLaunched=SDL_GetTicks();
 		if(ev->callback)
