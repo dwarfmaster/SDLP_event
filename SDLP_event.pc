@@ -1,0 +1,12 @@
+prefix=/home/luc
+exec_prefix=${prefix}
+libdir=${exec_prefix}/libs
+includedir=${prefix}/includes
+
+Name: SDLP_event
+Description: Events library for Simple DirectMedia Layer
+Version: 1.0
+Requires: sdl >= 1.2.10
+Libs: -L${libdir} -lSDLP_event
+Cflags: -I${includedir} -std=gnu++0x
+
