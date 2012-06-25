@@ -44,6 +44,8 @@ namespace sdl
 		m_iconify=cp.m_iconify;
 
 		m_persEvents=cp.m_persEvents;
+		
+		m_onCaptedEvent=cp.m_onCaptedEvent;
 
 		m_onPressedKey=cp.m_onPressedKey;
 		m_onReleaseKey=cp.m_onReleaseKey;
@@ -75,6 +77,9 @@ namespace sdl
 
 	void Event::updateFrom(SDL_Event* event)
 	{
+		if(m_onCaptedEvent)
+			m_onCaptedEvent(*event);
+
 		switch(event->type)
 		{
 			case SDL_QUIT:
@@ -321,6 +326,21 @@ namespace sdl
 			return true;
 		else
 			return false;
+	}
+
+	void Event::setOnCaptedEventCallback(boost::function<void (SDL_Event)> func)
+	{
+		m_onCaptedEvent=func;
+	}
+
+	bool Event::isOnCaptedEventCallback() const
+	{
+		return !m_onCaptedEvent.empty();
+	}
+
+	void Event::clearOnCaptedEventCallback()
+	{
+		m_onCaptedEvent.clear();
 	}
 
 	void Event::setOnPressedKeyCallback(boost::function<void (SDL_keysym*)> func)

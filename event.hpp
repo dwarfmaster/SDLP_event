@@ -52,6 +52,10 @@ namespace sdl
 			bool num() const;
 			bool caps() const;
 
+			void setOnCaptedEventCallback(boost::function<void (SDL_Event)> func);
+			bool isOnCaptedEventCallback() const;
+			void clearOnCaptedEventCallback();
+
 			void setOnPressedKeyCallback(boost::function<void (SDL_keysym*)> func);
 			bool isOnPressedKeyCallback() const;
 			void clearOnPressedKeyCallback();
@@ -153,6 +157,8 @@ namespace sdl
 			void testPEvent(std::string name);
 
 			// Callbacks
+			boost::function<void (SDL_Event)> m_onCaptedEvent;
+
 			boost::function<void (SDL_keysym*)> m_onPressedKey;
 			boost::function<void (SDL_keysym*)> m_onReleaseKey;
 			boost::function<void (SDL_Rect, SDL_Rect)> m_onMouseMoved;
