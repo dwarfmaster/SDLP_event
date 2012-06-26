@@ -106,7 +106,7 @@ namespace sdl
 			std::vector<SDLKey> getQuitKeys() const;
 			bool isQuitKey(SDLKey key) const;
 
-			bool addPEvent(std::string name, AnEvent* ev, boost::function<void ()> callback, boost::optional<boost::function<void ()>> onquit=boost::none, Uint32 time=0, Uint32 repeat=0);
+			bool addPEvent(std::string name, AnEvent* ev, boost::function<void ()> callback, boost::optional<boost::function<void ()> > onquit=boost::none, Uint32 time=0, Uint32 repeat=0);
 			bool changePEventCallback(std::string name, boost::function<void ()> callback);
 			bool clearPEventCallback(std::string name);
 			bool changePEventQuitCallback(std::string name, boost::function<void ()> callback);

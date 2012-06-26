@@ -561,7 +561,7 @@ namespace sdl
 		return false;
 	}
 
-	bool Event::addPEvent(std::string name, AnEvent* ev, boost::function<void ()> callback, boost::optional<boost::function<void ()>> onquit, Uint32 time, Uint32 repeat)
+	bool Event::addPEvent(std::string name, AnEvent* ev, boost::function<void ()> callback, boost::optional<boost::function<void ()> > onquit, Uint32 time, Uint32 repeat)
 	{
 		if(existPEvent(name))
 			return false;
