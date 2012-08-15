@@ -1,3 +1,8 @@
+/*!
+ * \file anevent.cpp
+ * \brief Implémente les fonction et classes de anevent.hpp.
+ */
+
 #include "anevent.hpp"
 
 namespace sdl

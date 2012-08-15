@@ -1,3 +1,8 @@
+/*!
+ * \file anevent.hpp
+ * \brief Définit la classe AnEvent.
+ */
+
 #ifndef DEF_SDL_ANEVENT
 #define DEF_SDL_ANEVENT
 
@@ -57,13 +62,13 @@ namespace sdl
 			boost::optional<SDL_Rect> getPlace() const;
 
 		protected:
-			std::vector<SDLKey> m_pressed; // Touches devant être pressées
-			std::vector<SDLKey> m_released; // Touches devant êtres relachées
-			std::vector<Uint8> m_buttonp; // Boutton devant être pressé
-			std::vector<Uint8> m_buttonr; // Boutton devant être relaché
+			std::vector<SDLKey> m_pressed; /*!< Touches devant être pressées. */
+			std::vector<SDLKey> m_released; /*!< Touches devant êtres relachées. */
+			std::vector<Uint8> m_buttonp; /*!< Bouttons devant être pressé. */
+			std::vector<Uint8> m_buttonr; /*!< Bouttons devant être relaché. */
 
-			bool m_usePlace;
-			SDL_Rect m_place;
+			bool m_usePlace; /*!< Si l'évènement utilise une localisation. */
+			SDL_Rect m_place; /*!< Localisation de l'évènement. */
 
 			std::vector<SDLKey> aKey(std::string str) const;
 			std::vector<std::string> parseStr(std::string str) const;
