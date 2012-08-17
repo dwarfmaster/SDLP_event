@@ -170,7 +170,7 @@
 /*!
  * \fn bool sdl::AnEvent::addButtons(std::vector<Uint8> buttons)
  * \brief Ajoute les bouttons à ceux devant être pressés.
- * \param button Les bouttons à ajouter.
+ * \param buttons Les bouttons à ajouter.
  * \return Indique le nombre de bouttons qui ont pu être ajoutés.
  */
 
@@ -184,7 +184,7 @@
 /*!
  * \fn bool sdl::AnEvent::addReleased(std::vector<Uint8> buttons)
  * \brief Ajoute les bouttons à ceux devant être relachés.
- * \param button Les bouttons à ajouter.
+ * \param buttons Les bouttons à ajouter.
  * \return Indique le nombre de bouttons qui ont pu être ajoutés.
  */
 
