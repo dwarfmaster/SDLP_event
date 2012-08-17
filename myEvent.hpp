@@ -1,3 +1,8 @@
+/*!
+ * \file myEvent.hpp
+ * \brief Définit la classe abstraite MyEvent.
+ */
+
 #ifndef DEF_SDLP_MY_EVENT
 #define DEF_SDLP_MY_EVENT
 
