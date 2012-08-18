@@ -1,3 +1,8 @@
+/*!
+ * \file event.cpp
+ * \brief Implémente la classe Event.
+ */
+
 #include "event.hpp"
 
 namespace sdl

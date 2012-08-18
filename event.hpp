@@ -1,3 +1,8 @@
+/*!
+ * \file event.hpp
+ * \brief Définit la classe Event.
+ */
+
 #ifndef DEF_SDLP_EVENT
 #define DEF_SDLP_EVENT
 
@@ -120,58 +125,58 @@ namespace sdl
 			// An event
 			struct PressEvent
 			{
-				bool state; // Pressé ou pas
-				Uint32 lastPress; // La dernière foix qu'on l'a pressé
-				Uint32 lastRelease; // La dernière foix qu'on l'a relaché
+				bool state; /*!< Pressé ou pas. */
+				Uint32 lastPress; /*!< La dernière fois qu'on l'a pressé. */
+				Uint32 lastRelease; /*!< La dernière fois qu'on l'a relaché. */
 			};
 
 			// Status
-			boost::array<PressEvent, SDLK_LAST> m_keys;
-			SDL_Rect m_posMouse;
-			SDL_Rect m_relMouse;
-			boost::array<PressEvent, 8> m_buttons;
+			boost::array<PressEvent, SDLK_LAST> m_keys; /*!< L'état du clavier. */
+			SDL_Rect m_posMouse; /*!< La position de la souris. */
+			SDL_Rect m_relMouse; /*!< La position de la souris par rapport à sa dernière position. */
+			boost::array<PressEvent, 8> m_buttons; /*!< L'état des bouttons. */
 
-			SDL_Rect m_sizeWindow;
-			bool m_mouseFocus;
-			bool m_inputFocus;
-			bool m_iconify;
+			SDL_Rect m_sizeWindow; /*!< La taille de la fenêtre. */
+			bool m_mouseFocus; /*!< Si la fenêtre a le focus de la souris. */
+			bool m_inputFocus; /*!< Si la fenêtre a le focus du clavier. */
+			bool m_iconify; /*!< Si la fenêtre est iconifiée. */
 
 			// Quit
-			std::vector<SDLKey> m_quitKeys;
-			bool m_quit;
+			std::vector<SDLKey> m_quitKeys; /*!< Les touches servant à quitter. */
+			bool m_quit; /*!< S'il faut quitter. */
 
-			// Events specials
+			// Specials events
 			struct PersEvent
 			{
-				AnEvent* event;
-				Uint32 firstTime; // temps pour l'activer (si 0 immédiatement)
-				Uint32 repeat; // Temps entre chaque répétition (si 0 pas de répétitions)
-				boost::function<void ()> callback; // La fonction à appeller
-				boost::function<void ()> quitCallback; // La fonction à appeller lorsque l'évènement devient faux
-				bool launched; // déjà lancé ?
-				Uint32 lastLaunched;
+				AnEvent* event; /*!< L'évènement. */
+				Uint32 firstTime; /*!< temps pour l'activer (si 0 immédiatement). */
+				Uint32 repeat; /*!< Temps entre chaque répétition (si 0 pas de répétitions). */
+				boost::function<void ()> callback; /*!< La fonction à appeller. */
+				boost::function<void ()> quitCallback; /*!< La fonction à appeller lorsque l'évènement devient faux. */
+				bool launched; /*!< Si l'évènement est déjà lancé. */
+				Uint32 lastLaunched; /*!< Le dernier lancement de l'évènement. */
 			};
-			std::map<std::string, PersEvent> m_persEvents;
+			std::map<std::string, PersEvent> m_persEvents; /*!< La liste des évènements personnalisés associés à leurs noms. */
 
 			void testPEvents();
 			void testPEvent(std::string name);
 
 			// Callbacks
-			boost::function<void (SDL_Event)> m_onCaptedEvent;
+			boost::function<void (SDL_Event)> m_onCaptedEvent; /*!< Fonction appelée à chaque nouvel évènement. */
 
-			boost::function<void (SDL_keysym*)> m_onPressedKey;
-			boost::function<void (SDL_keysym*)> m_onReleaseKey;
-			boost::function<void (SDL_Rect, SDL_Rect)> m_onMouseMoved;
-			boost::function<void (Uint8, SDL_Rect)> m_onPressedButton;
-			boost::function<void (Uint8, SDL_Rect)> m_onReleaseButton;
+			boost::function<void (SDL_keysym*)> m_onPressedKey; /*!< Fonction appelée à chaque appui de touche. */
+			boost::function<void (SDL_keysym*)> m_onReleaseKey; /*!< Fonction appelée à chaque relachement de touche. */
+			boost::function<void (SDL_Rect, SDL_Rect)> m_onMouseMoved; /*!< Fonction appelée à chaque déplacement de la souris (le premier argument est la postion absolue et le deuxième la position relative). */
+			boost::function<void (Uint8, SDL_Rect)> m_onPressedButton; /*!< Fonction appelée à chaque appui de boutton. */
+			boost::function<void (Uint8, SDL_Rect)> m_onReleaseButton; /*!< Fonction appelée à chaque relachement de boutton. */
 
-			boost::function<void (SDL_Rect)> m_onResizeWindow;
-			boost::function<void ()> m_onGetMouseFocus;
-			boost::function<void ()> m_onLoseMouseFocus;
-			boost::function<void ()> m_onGetInputFocus;
-			boost::function<void ()> m_onLoseInputFocus;
-			boost::function<void ()> m_onIconify;
-			boost::function<void ()> m_onActive; // Le contre de onIconify
+			boost::function<void (SDL_Rect)> m_onResizeWindow; /*!< Fonction appelée lors du redimensionnement de la fenêtre. */
+			boost::function<void ()> m_onGetMouseFocus; /*!< Fonction appelée lors du gain du focus de la souris. */
+			boost::function<void ()> m_onLoseMouseFocus; /*!< Fonction appelée lors de la perte du focus de la souris. */
+			boost::function<void ()> m_onGetInputFocus; /*!< Fonction appelée lors du gain du focus du clavier. */
+			boost::function<void ()> m_onLoseInputFocus; /*!< Fonction appelée lors de la perte du focus du clavier. */
+			boost::function<void ()> m_onIconify; /*!< Fonction appelée lorsque la fenêtre est iconifiée. */
+			boost::function<void ()> m_onActive; /*!< Fonction appelée lorsque la fenêtre est activée (restorée). */
 	};
 };
 
