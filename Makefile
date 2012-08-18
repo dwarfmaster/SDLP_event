@@ -1,10 +1,5 @@
-OBJS=event.o myEvent.o anevent.o
-NAME=SDLP_event
+include param.mk
 
-CXXFLAGS=-Wall -Wextra `sdl-config --cflags` -fPIC -fsigned-bitfields -std=gnu++0x -g
-LDFLAGS=-shared
-
-LIB=lib$(NAME).so
 DEST=/home/luc/libs
 VERSION=1.0
 
@@ -17,24 +12,19 @@ PCDIR=/usr/lib/pkgconfig
 
 all : $(LIB)
 
-$(LIB) : $(OBJS)
-	g++ $(CXXFLAGS)    -o $@	$^ $(LDFLAGS)
-	chmod -x $(LIB)
-
-%.o : %.cpp %.hpp
-	g++ $(CXXFLAGS) -c -o $@	$<
+$(LIB) :
+	cd src && make
 
 clean :
-	@touch $(OBJS) $(LIB)
-	@rm -v $(OBJS) $(LIB)
+	cd src && make clean
 
-rec : clean all
+rec : clean $(LIB)
 
 install : $(LIB)
 	@cp -v $(LIB) $(DEST)
 	@mkdir $(INCSDIR)
 	@cp -v $(INCFILE) $(INCLUDES)
-	@cp -v `ls *.hpp --ignore=$(INCFILE)` $(INCSDIR)
+	@cp -v `ls src/*.hpp --ignore=$(INCFILE)` $(INCSDIR)
 	@cp -v $(PCFILE) $(PCDIR)
 
 uninstall : $(LIBS)
