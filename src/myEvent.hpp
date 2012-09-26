@@ -31,6 +31,8 @@ namespace sdl
 	class MyEvent
 	{
 		public:
+			virtual ~MyEvent();
+
 			virtual void update() =0;
 			virtual void updateFrom(SDL_Event* event) =0;
 
