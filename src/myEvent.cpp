@@ -23,4 +23,10 @@
 
 #include "myEvent.hpp"
 
+namespace sdl
+{
+	MyEvent::~MyEvent()
+	{}
+};
+
 
